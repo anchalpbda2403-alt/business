@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GramBiz AI - AI Business Partner for Rural India</title>
+  <meta name="description" content="AI-driven hyperlocal business advisory, financial structuring, revenue & expense management for rural micro-entrepreneurs in India.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    /* Landing page hero specific styling */
+    .hero-section {
+      padding: 5rem 0 4rem 0;
+      background: linear-gradient(135deg, #064E3B 0%, #047857 60%, #065F46 100%);
+      color: var(--white);
+      border-radius: 0 0 32px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1.25rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .hero-title {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+      line-height: 1.15;
+    }
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2.25rem;
+      max-width: 680px;
+    }
+    .feature-icon-box {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-md);
+      background: var(--primary-100);
+      color: var(--primary-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header style="background: var(--white); border-bottom: 1px solid var(--neutral-200); position: sticky; top:0; z-index: 100;">
+    <div class="container d-flex justify-content-between align-items-center" style="height: 72px; display: flex; justify-content: flex-end; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="en" onclick="i18n.setLanguage('en')">English</button>
+          <button class="lang-btn" data-lang="hi" onclick="i18n.setLanguage('hi')">हिन्दी</button>
+        </div>
+        <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+        <a href="signup.html" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+      <div class="hero-badge">
+        <i class="fas fa-sparkles" style="color: #F59E0B;"></i>
+        <span>AI-Driven Hyperlocal Business Assistant</span>
+      </div>
+      <h1 class="hero-title" data-i18n="app_subtitle">Your AI Business Partner for Rural India</h1>
+      <p class="hero-subtitle">
+        Get personalized business advice, financial planning, expense tracking, and hyperlocal market insights — all in one simple, accessible platform.
+      </p>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+        <a href="signup.html" class="btn btn-earth btn-lg" data-i18n="btn_get_started"><i class="fas fa-rocket"></i> Get Started</a>
+        <a href="#features" class="btn btn-secondary btn-lg" data-i18n="btn_explore_features"><i class="fas fa-compass"></i> Explore Features</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section style="padding: 4rem 0; background: var(--white);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span class="badge badge-success mb-2">SIMPLE & EASY</span>
+        <h2 style="font-size: 2.2rem;">How GramBiz AI Works</h2>
+        <p class="text-muted">Designed for first-time digital users and rural micro-entrepreneurs.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+        <div class="card" style="text-align: center; padding: 2rem;">
+          <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-600); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin: 0 auto 1rem auto;">1</div>
+          <h3>Create Profile</h3>
+          <p style="color: var(--neutral-600); font-size: 0.92rem; margin-top: 0.5rem;">Enter basic details about your village location, business type, investment budget, and goals.</p>
+        </div>
+
+        <div class="card" style="text-align: center; padding: 2rem;">
+          <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-600); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin: 0 auto 1rem auto;">2</div>
+          <h3>Ask AI Advisor</h3>
+          <p style="color: var(--neutral-600); font-size: 0.92rem; margin-top: 0.5rem;">Chat with your bilingual AI Business Advisor to find profitable ideas or cut operating costs.</p>
+        </div>
+
+        <div class="card" style="text-align: center; padding: 2rem;">
+          <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-600); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin: 0 auto 1rem auto;">3</div>
+          <h3>Track & Structure</h3>
+          <p style="color: var(--neutral-600); font-size: 0.92rem; margin-top: 0.5rem;">Calculate break-even revenue, track daily expenses, and generate structured business plans.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Feature Highlights -->
+  <section id="features" style="padding: 4rem 0; background: var(--neutral-50);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3.5rem;">
+        <span class="badge badge-warning mb-2">POWERFUL TOOLS</span>
+        <h2 style="font-size: 2.2rem;">Built For Rural Entrepreneurs</h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        <!-- Feature 1 -->
+        <div class="card">
+          <div class="feature-icon-box"><i class="fas fa-robot"></i></div>
+          <h3>AI Business Advisory</h3>
+          <p style="color: var(--neutral-600); margin-top: 0.5rem; font-size: 0.92rem;">
+            Conversational advice tailored to your exact budget, local village demand, and seasonal market conditions.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="card">
+          <div class="feature-icon-box" style="background: var(--accent-earth-light); color: var(--accent-earth);"><i class="fas fa-map-marker-alt"></i></div>
+          <h3>Hyperlocal Market Insights</h3>
+          <p style="color: var(--neutral-600); margin-top: 0.5rem; font-size: 0.92rem;">
+            Discover high-demand opportunities in dairy, agro-processing, tailoring, and repair services for your block or district.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="card">
+          <div class="feature-icon-box" style="background: #DBEAFE; color: #1E40AF;"><i class="fas fa-calculator"></i></div>
+          <h3>Financial Structuring & EMI</h3>
+          <p style="color: var(--neutral-600); margin-top: 0.5rem; font-size: 0.92rem;">
+            Instantly calculate monthly profit margins, break-even revenue targets, loan EMIs, and 12-month projections.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="card">
+          <div class="feature-icon-box" style="background: #F3E8FF; color: #6B21A8;"><i class="fas fa-file-invoice-dollar"></i></div>
+          <h3>Business Plan Generator</h3>
+          <p style="color: var(--neutral-600); margin-top: 0.5rem; font-size: 0.92rem;">
+            Generate complete structured 11-section business plans ready for presentation to banks or co-operatives.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="card">
+          <div class="feature-icon-box" style="background: #FEE2E2; color: #991B1B;"><i class="fas fa-chart-pie"></i></div>
+          <h3>Expense & Revenue Tracker</h3>
+          <p style="color: var(--neutral-600); margin-top: 0.5rem; font-size: 0.92rem;">
+            Log daily raw material purchases, transport costs, and sales receipts with interactive category charts.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="card">
+          <div class="feature-icon-box" style="background: #ECFDF5; color: #047857;"><i class="fas fa-language"></i></div>
+          <h3>Bilingual Support</h3>
+          <p style="color: var(--neutral-600); margin-top: 0.5rem; font-size: 0.92rem;">
+            Seamless instant toggle between English and Hindi (हिन्दी) so micro-entrepreneurs feel right at home.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section style="padding: 4rem 0; background: var(--white);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span class="badge badge-info mb-2">DEMO TESTIMONIALS</span>
+        <h2 style="font-size: 2.2rem;">Entrepreneur Success Stories</h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <div class="card bg-gradient-soft" style="border: 1px solid var(--primary-100);">
+          <p style="font-style: italic; color: var(--neutral-700); margin-bottom: 1.25rem;">
+            "GramBiz AI helped me calculate the exact break-even point for my small spice milling business in Kolhapur. I saved ₹4,000 per month on raw material bulk buying!"
+          </p>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="avatar">RS</div>
+            <div>
+              <h5 style="margin: 0;">Ramesh Shinde</h5>
+              <small class="text-muted">Spice Mill Owner • Maharashtra (Demo)</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-gradient-soft" style="border: 1px solid var(--primary-100);">
+          <p style="font-style: italic; color: var(--neutral-700); margin-bottom: 1.25rem;">
+            "The AI Advisor suggested adding custom uniform stitching to my tailoring shop during wedding season. My revenue grew by 35%!"
+          </p>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="avatar" style="background: var(--accent-earth);">PD</div>
+            <div>
+              <h5 style="margin: 0;">Sunita Devi</h5>
+              <small class="text-muted">Garment Tailor • Bihar (Demo)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background: var(--primary-900); color: var(--white); padding: 3rem 0 1.5rem 0;">
+    <div class="container">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 2rem; margin-bottom: 1.5rem;">
+        <div>
+          <div class="sidebar-logo" style="color: white;">
+            <i class="fas fa-seedling" style="color: var(--primary-500);"></i>
+            <span>GramBiz AI</span>
+          </div>
+          <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 0.75rem; max-width: 340px;">
+            Empowering rural micro-entrepreneurs across India with AI-driven hyperlocal financial & business advisory.
+          </p>
+        </div>
+        <div>
+          <h5 style="color: white; margin-bottom: 0.75rem;">Quick Links</h5>
+          <ul style="list-style: none;">
+            <li style="margin-bottom: 0.4rem;"><a href="login.html" style="color: rgba(255,255,255,0.7);">Login</a></li>
+            <li style="margin-bottom: 0.4rem;"><a href="signup.html" style="color: rgba(255,255,255,0.7);">Sign Up</a></li>
+            <li style="margin-bottom: 0.4rem;"><a href="dashboard.html" style="color: rgba(255,255,255,0.7);">Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+      <div style="text-align: center; color: rgba(255,255,255,0.5); font-size: 0.85rem;">
+        © 2026 GramBiz AI. Built for Rural Entrepreneurship & Micro-Finance Innovation.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

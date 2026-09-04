@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - GramBiz AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="dashboard.html" class="sidebar-link active">
+            <i class="fas fa-home"></i>
+            <span data-i18n="nav_dashboard">Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="advisor.html" class="sidebar-link">
+            <i class="fas fa-robot"></i>
+            <span data-i18n="nav_advisor">AI Advisor</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="hyperlocal.html" class="sidebar-link">
+            <i class="fas fa-map-marker-alt"></i>
+            <span data-i18n="nav_hyperlocal">Hyperlocal Insights</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="finance.html" class="sidebar-link">
+            <i class="fas fa-calculator"></i>
+            <span data-i18n="nav_finance">Financial Planner</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="expenses.html" class="sidebar-link">
+            <i class="fas fa-receipt"></i>
+            <span data-i18n="nav_expenses">Expenses</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="revenue.html" class="sidebar-link">
+            <i class="fas fa-coins"></i>
+            <span data-i18n="nav_revenue">Revenue</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="business-plan.html" class="sidebar-link">
+            <i class="fas fa-file-contract"></i>
+            <span data-i18n="nav_business_plan">Business Plan</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="funding.html" class="sidebar-link">
+            <i class="fas fa-landmark"></i>
+            <span data-i18n="nav_funding">Funding Assistant</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="profile.html" class="sidebar-link">
+            <i class="fas fa-user-cog"></i>
+            <span data-i18n="nav_profile">Profile</span>
+          </a>
+        </li>
+        <li class="sidebar-item" style="margin-top: 1.5rem; border-top: 1px solid var(--neutral-100); padding-top: 0.5rem;">
+          <a href="#" class="sidebar-link logout-btn" style="color: var(--status-danger);">
+            <i class="fas fa-sign-out-alt"></i>
+            <span data-i18n="nav_logout">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="mobileMenuToggle" class="btn btn-secondary btn-sm" style="display: none;"><i class="fas fa-bars"></i></button>
+          <div class="topbar-search">
+            <i class="fas fa-search" style="color: var(--neutral-400);"></i>
+            <input type="text" placeholder="Search insights, metrics...">
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <!-- Language Switcher -->
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en" onclick="i18n.setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="hi" onclick="i18n.setLanguage('hi')">हिन्दी</button>
+          </div>
+
+          <!-- Notification Bell -->
+          <div class="notif-bell" onclick="window.location.href='profile.html#notifs'">
+            <i class="fas fa-bell"></i>
+            <div class="notif-badge"></div>
+          </div>
+
+          <!-- User Avatar -->
+          <div class="user-profile-badge" onclick="window.location.href='profile.html'">
+            <div class="avatar" id="headerAvatar">GB</div>
+            <div style="display: flex; flex-direction: column;">
+              <span id="headerUserName" style="font-weight: 700; font-size: 0.9rem;">Entrepreneur</span>
+              <small class="text-muted" id="headerBusiness">GramBiz Member</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Inner Page Container -->
+      <div class="page-container">
+
+        <!-- Top Greeting Section -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h1 style="font-size: 1.8rem; color: var(--neutral-900);">
+              <span data-i18n="greeting_morning">Good Morning,</span> <span id="dashGreetingName">Entrepreneur</span> 👋
+            </h1>
+            <p class="text-muted" style="font-size: 0.95rem;">Here is your business performance summary and AI recommendations.</p>
+          </div>
+          <div>
+            <a href="advisor.html" class="btn btn-primary"><i class="fas fa-comments"></i> Ask AI Advisor</a>
+          </div>
+        </div>
+
+        <!-- KPI Cards Grid -->
+        <div class="grid-kpis">
+          <!-- Card 1: Revenue -->
+          <div class="card kpi-card">
+            <div class="kpi-icon emerald"><i class="fas fa-coins"></i></div>
+            <div class="kpi-details">
+              <h4 data-i18n="monthly_revenue">Monthly Revenue</h4>
+              <div class="kpi-value" id="kpiRevenue">₹40,000</div>
+            </div>
+          </div>
+
+          <!-- Card 2: Expenses -->
+          <div class="card kpi-card">
+            <div class="kpi-icon amber"><i class="fas fa-receipt"></i></div>
+            <div class="kpi-details">
+              <h4 data-i18n="monthly_expenses">Monthly Expenses</h4>
+              <div class="kpi-value" id="kpiExpenses">₹25,000</div>
+            </div>
+          </div>
+
+          <!-- Card 3: Estimated Profit -->
+          <div class="card kpi-card">
+            <div class="kpi-icon blue"><i class="fas fa-chart-line"></i></div>
+            <div class="kpi-details">
+              <h4 data-i18n="estimated_profit">Estimated Profit</h4>
+              <div class="kpi-value" id="kpiProfit">₹15,000</div>
+            </div>
+          </div>
+
+          <!-- Card 4: Available Cash -->
+          <div class="card kpi-card">
+            <div class="kpi-icon purple"><i class="fas fa-wallet"></i></div>
+            <div class="kpi-details">
+              <h4 data-i18n="available_cash">Available Cash</h4>
+              <div class="kpi-value" id="kpiCash">₹15,000</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Column Layout: Health Score & AI Recommendations + Chart -->
+        <div class="grid-2col">
+          
+          <!-- Column 1: Main Chart -->
+          <div class="card" style="display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <h3 style="font-size: 1.1rem;" data-i18n="revenue_vs_expenses">Revenue vs Expenses</h3>
+              <span class="badge badge-success">Last 6 Months</span>
+            </div>
+            <div style="position: relative; height: 280px;">
+              <canvas id="dashRevenueChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Column 2: Health Score Gauge -->
+          <div class="card health-score-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem;" data-i18n="health_score">Business Health Score</h3>
+            
+            <div class="circular-progress mb-3" id="dashHealthGauge" style="--progress: 78;">
+              <div class="health-score-value" id="dashHealthVal">78</div>
+            </div>
+            <span class="badge badge-success mb-2" id="dashHealthRating">Good (78/100)</span>
+            
+            <p class="text-muted small mb-0" style="font-size: 0.78rem; text-align: center; color: var(--neutral-500);">
+              AI-generated informational indicator based on profit margin & cash reserves.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Dynamic AI Recommendations Section -->
+        <div class="card p-4">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+            <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--primary-100); color: var(--primary-700); display: flex; align-items: center; justify-content: center;">
+              <i class="fas fa-robot"></i>
+            </div>
+            <h3 style="font-size: 1.15rem;" data-i18n="ai_recommendations">AI Business Recommendations</h3>
+          </div>
+
+          <ul id="recommendationsList" style="list-style: none; display: flex; flex-direction: column; gap: 0.85rem;">
+            <li class="p-3 bg-gradient-soft" style="border-radius: var(--radius-md); border-left: 4px solid var(--primary-600);">
+              <i class="fas fa-lightbulb me-2" style="color: var(--accent-amber);"></i>
+              <span>Your expenses have increased this month. Consider reducing unnecessary transport and raw material operating costs.</span>
+            </li>
+            <li class="p-3 bg-gradient-soft" style="border-radius: var(--radius-md); border-left: 4px solid var(--primary-600);">
+              <i class="fas fa-chart-line me-2" style="color: var(--primary-600);"></i>
+              <span>Direct customer sales in nearby weekly Haat markets may improve profit margins by up to 15%.</span>
+            </li>
+            <li class="p-3 bg-gradient-soft" style="border-radius: var(--radius-md); border-left: 4px solid var(--primary-600);">
+              <i class="fas fa-shield-alt me-2" style="color: #3B82F6;"></i>
+              <span>Maintain an emergency cash reserve of at least 3 months operating expenses.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="bottom-nav-item active">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="advisor.html" class="bottom-nav-item">
+        <i class="fas fa-robot"></i>
+        <span>AI Advisor</span>
+      </a>
+      <a href="hyperlocal.html" class="bottom-nav-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Insights</span>
+      </a>
+      <a href="finance.html" class="bottom-nav-item">
+        <i class="fas fa-calculator"></i>
+        <span>Finance</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const res = await GramBiz.fetch('/dashboard');
+      if (res.success && res.data) {
+        const d = res.data;
+        document.getElementById('dashGreetingName').textContent = d.user_name;
+        document.getElementById('headerUserName').textContent = d.user_name;
+        document.getElementById('headerBusiness').textContent = d.business_type;
+
+        const initials = d.user_name.split(' ').map(n => n[0]).join('').toUpperCase();
+        document.getElementById('headerAvatar').textContent = initials || 'GB';
+
+        // KPIs
+        document.getElementById('kpiRevenue').textContent = GramBiz.formatINR(d.kpis.monthly_revenue);
+        document.getElementById('kpiExpenses').textContent = GramBiz.formatINR(d.kpis.monthly_expenses);
+        document.getElementById('kpiProfit').textContent = GramBiz.formatINR(d.kpis.estimated_profit);
+        document.getElementById('kpiCash').textContent = GramBiz.formatINR(d.kpis.available_cash);
+
+        // Health Score
+        const score = d.kpis.health_score;
+        const gauge = document.getElementById('dashHealthGauge');
+        gauge.style.setProperty('--progress', score);
+        document.getElementById('dashHealthVal').textContent = score;
+        document.getElementById('dashHealthRating').textContent = `${d.kpis.health_rating} (${score}/100)`;
+
+        // Recommendations
+        if (d.recommendations && d.recommendations.length > 0) {
+          const list = document.getElementById('recommendationsList');
+          list.innerHTML = d.recommendations.map(r => `
+            <li class="p-3 bg-gradient-soft" style="border-radius: var(--radius-md); border-left: 4px solid var(--primary-600); margin-bottom: 0.5rem;">
+              <i class="fas fa-lightbulb me-2" style="color: var(--accent-amber);"></i>
+              <span>${r}</span>
+            </li>
+          `).join('');
+        }
+
+        // Chart
+        if (d.chart_data) {
+          GramBizCharts.initRevenueVsExpenseChart(
+            'dashRevenueChart',
+            d.chart_data.labels,
+            d.chart_data.revenue,
+            d.chart_data.expenses
+          );
+        }
+      }
+    });
+  </script>
+</body>
+</html>

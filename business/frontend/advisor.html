@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Business Advisor - GramBiz AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 180px);
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--neutral-200);
+      overflow: hidden;
+    }
+    .chat-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--neutral-200);
+      background: var(--neutral-50);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .chat-bubble {
+      display: flex;
+      gap: 0.85rem;
+      max-width: 80%;
+    }
+    .chat-bubble-assistant {
+      align-self: flex-start;
+    }
+    .chat-bubble-user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    .chat-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--primary-600);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .chat-avatar.user {
+      background: var(--neutral-700);
+    }
+    .chat-text {
+      padding: 1rem 1.25rem;
+      border-radius: 18px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .chat-bubble-assistant .chat-text {
+      background: var(--neutral-100);
+      color: var(--neutral-900);
+      border-top-left-radius: 4px;
+    }
+    .chat-bubble-user .chat-text {
+      background: var(--primary-600);
+      color: white;
+      border-top-right-radius: 4px;
+    }
+    .chat-input-bar {
+      padding: 1.25rem;
+      border-top: 1px solid var(--neutral-200);
+      background: var(--white);
+      display: flex;
+      gap: 0.75rem;
+    }
+    .quick-chips-wrapper {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding: 0.75rem 1.5rem;
+      background: var(--neutral-50);
+      border-bottom: 1px solid var(--neutral-200);
+    }
+    .typing-dots span {
+      animation: blink 1.4s infinite both;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: .2s; }
+    .typing-dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes blink { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
+  </style>
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="dashboard.html" class="sidebar-link">
+            <i class="fas fa-home"></i>
+            <span data-i18n="nav_dashboard">Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="advisor.html" class="sidebar-link active">
+            <i class="fas fa-robot"></i>
+            <span data-i18n="nav_advisor">AI Advisor</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="hyperlocal.html" class="sidebar-link">
+            <i class="fas fa-map-marker-alt"></i>
+            <span data-i18n="nav_hyperlocal">Hyperlocal Insights</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="finance.html" class="sidebar-link">
+            <i class="fas fa-calculator"></i>
+            <span data-i18n="nav_finance">Financial Planner</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="expenses.html" class="sidebar-link">
+            <i class="fas fa-receipt"></i>
+            <span data-i18n="nav_expenses">Expenses</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="revenue.html" class="sidebar-link">
+            <i class="fas fa-coins"></i>
+            <span data-i18n="nav_revenue">Revenue</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="business-plan.html" class="sidebar-link">
+            <i class="fas fa-file-contract"></i>
+            <span data-i18n="nav_business_plan">Business Plan</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="funding.html" class="sidebar-link">
+            <i class="fas fa-landmark"></i>
+            <span data-i18n="nav_funding">Funding Assistant</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="profile.html" class="sidebar-link">
+            <i class="fas fa-user-cog"></i>
+            <span data-i18n="nav_profile">Profile</span>
+          </a>
+        </li>
+        <li class="sidebar-item" style="margin-top: 1.5rem; border-top: 1px solid var(--neutral-100); padding-top: 0.5rem;">
+          <a href="#" class="sidebar-link logout-btn" style="color: var(--status-danger);">
+            <i class="fas fa-sign-out-alt"></i>
+            <span data-i18n="nav_logout">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="mobileMenuToggle" class="btn btn-secondary btn-sm" style="display: none;"><i class="fas fa-bars"></i></button>
+          <h2><i class="fas fa-robot text-success me-2"></i>AI Business Advisor</h2>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en" onclick="i18n.setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="hi" onclick="i18n.setLanguage('hi')">हिन्दी</button>
+          </div>
+          <div class="user-profile-badge" onclick="window.location.href='profile.html'">
+            <div class="avatar">GB</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Container -->
+      <div class="page-container">
+        
+        <div class="chat-container">
+          
+          <!-- Chat Header -->
+          <div class="chat-header">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div class="chat-avatar" style="background: var(--primary-600);"><i class="fas fa-robot"></i></div>
+              <div>
+                <h4 style="margin: 0;">GramBiz AI Advisor</h4>
+                <small class="text-success"><i class="fas fa-circle" style="font-size: 0.6rem;"></i> Active • Profile Context Aware</small>
+              </div>
+            </div>
+            <span class="badge badge-info">Bilingual Advisor</span>
+          </div>
+
+          <!-- Quick Action Buttons / Prompt Pills -->
+          <div class="quick-chips-wrapper">
+            <div class="chip advisor-chip" data-prompt="Which business is suitable for my village?">💡 Business Idea</div>
+            <div class="chip advisor-chip" data-prompt="How can I increase my sales?">📈 Increase Sales</div>
+            <div class="chip advisor-chip" data-prompt="My expenses are too high. What should I do?">💰 Reduce Costs</div>
+            <div class="chip advisor-chip" data-prompt="I have ₹50,000. What business can I start?">🏦 Funding</div>
+            <div class="chip advisor-chip" data-prompt="How can I improve cash flow?">📊 Financial Advice</div>
+          </div>
+
+          <!-- Chat Messages Area -->
+          <div class="chat-messages" id="chatMessages">
+            <div class="chat-bubble chat-bubble-assistant">
+              <div class="chat-avatar"><i class="fas fa-robot"></i></div>
+              <div class="chat-text">
+                Namaste! I am your AI Business Advisor. Ask me anything about business setup, revenue growth, cost reduction, or funding options for your rural enterprise.
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Input Bar -->
+          <div class="chat-input-bar">
+            <input type="text" id="chatInput" class="form-control" placeholder="Ask AI advisor (e.g. Which business is suitable for my village?)..." data-i18n="ask_advisor_placeholder">
+            <button id="chatSendBtn" class="btn btn-primary" data-i18n="btn_send"><i class="fas fa-paper-plane"></i> Send</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="advisor.html" class="bottom-nav-item active">
+        <i class="fas fa-robot"></i>
+        <span>AI Advisor</span>
+      </a>
+      <a href="hyperlocal.html" class="bottom-nav-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Insights</span>
+      </a>
+      <a href="finance.html" class="bottom-nav-item">
+        <i class="fas fa-calculator"></i>
+        <span>Finance</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/advisor.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+/* GramBiz AI - Financial Structuring & Business Plan Generator */
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Financial Planner Form & Sliders
+  const finPlannerForm = document.getElementById('finPlannerForm');
+  if (finPlannerForm) {
+    // Bind change/input events for real-time recalculation
+    const inputs = finPlannerForm.querySelectorAll('input, select');
+    inputs.forEach(input => {
+      input.addEventListener('input', calculateFinancials);
+    });
+
+    calculateFinancials(); // initial run
+  }
+
+  async function calculateFinancials() {
+    const payload = {
+      initial_investment: document.getElementById('finInvestment')?.value || 100000,
+      monthly_revenue: document.getElementById('finRevenue')?.value || 40000,
+      monthly_fixed_costs: document.getElementById('finFixedCosts')?.value || 15000,
+      monthly_variable_costs: document.getElementById('finVariableCosts')?.value || 10000,
+      expected_growth_pct: document.getElementById('finGrowth')?.value || 5,
+      loan_amount: document.getElementById('finLoanAmount')?.value || 50000,
+      loan_interest_rate: document.getElementById('finInterestRate')?.value || 10.5,
+      loan_tenure_months: document.getElementById('finLoanTenure')?.value || 24,
+      current_savings: document.getElementById('finSavings')?.value || 20000
+    };
+
+    const res = await GramBiz.fetch('/financial-analysis', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+
+    if (res.success && res.data) {
+      const d = res.data;
+      
+      // Update DOM values
+      if (document.getElementById('resTotalExpense')) document.getElementById('resTotalExpense').textContent = GramBiz.formatINR(d.total_monthly_expense);
+      if (document.getElementById('resEstimatedProfit')) document.getElementById('resEstimatedProfit').textContent = GramBiz.formatINR(d.estimated_profit);
+      if (document.getElementById('resProfitMargin')) document.getElementById('resProfitMargin').textContent = `${d.profit_margin.toFixed(1)}%`;
+      if (document.getElementById('resBreakEven')) document.getElementById('resBreakEven').textContent = GramBiz.formatINR(d.break_even_revenue);
+      if (document.getElementById('resMonthlyEMI')) document.getElementById('resMonthlyEMI').textContent = GramBiz.formatINR(d.monthly_emi);
+      if (document.getElementById('resFundingGap')) document.getElementById('resFundingGap').textContent = GramBiz.formatINR(d.funding_gap);
+
+      // Render Projections Chart if present
+      if (window.projectionsChartInstance) {
+        window.projectionsChartInstance.destroy();
+      }
+
+      if (d.projections && document.getElementById('projectionsChart')) {
+        const labels = d.projections.map(p => p.month);
+        const revs = d.projections.map(p => p.revenue);
+        const exps = d.projections.map(p => p.expense);
+        window.projectionsChartInstance = GramBizCharts.initRevenueVsExpenseChart('projectionsChart', labels, revs, exps);
+      }
+    }
+  }
+
+  // Business Plan Generator Handler
+  const planGeneratorForm = document.getElementById('planGeneratorForm');
+  if (planGeneratorForm) {
+    planGeneratorForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const payload = {
+        business_name: document.getElementById('planBusinessName').value.trim(),
+        business_type: document.getElementById('planBusinessType').value,
+        location: document.getElementById('planLocation').value.trim(),
+        investment: document.getElementById('planInvestment').value,
+        target_customers: document.getElementById('planTargetCustomers').value.trim(),
+        products_services: document.getElementById('planProducts').value.trim(),
+        expected_monthly_sales: document.getElementById('planExpectedSales').value
+      };
+
+      const generateBtn = document.getElementById('planGenerateBtn');
+      if (generateBtn) generateBtn.disabled = true;
+      GramBiz.showToast('Generating AI Business Plan...', 'info');
+
+      const res = await GramBiz.fetch('/business-plan', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+
+      if (generateBtn) generateBtn.disabled = false;
+
+      if (res.success && res.data && res.data.business_plan) {
+        renderBusinessPlan(res.data.business_plan);
+        GramBiz.showToast('Business Plan Generated!', 'success');
+      } else {
+        GramBiz.showToast('Failed to generate business plan.', 'danger');
+      }
+    });
+  }
+
+  function renderBusinessPlan(plan) {
+    const previewContainer = document.getElementById('businessPlanPreview');
+    if (!previewContainer) return;
+
+    previewContainer.style.display = 'block';
+
+    const html = `
+      <div class="card p-4 mb-4" id="printablePlan">
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+          <div>
+            <h2 class="text-primary-900 mb-1"><i class="fas fa-file-contract me-2"></i>${plan.title}</h2>
+            <p class="text-muted small">Generated by GramBiz AI • Rural Business Advisory System</p>
+          </div>
+          <button class="btn btn-primary" id="downloadPlanPdfBtn"><i class="fas fa-download"></i> Download / Print</button>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-bullseye me-2"></i>1. Executive Summary</h4>
+          <p>${plan['1_executive_summary']}</p>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-store me-2"></i>2. Business Description</h4>
+          <p>${plan['2_business_description']}</p>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-users me-2"></i>3. Target Customers</h4>
+          <p>${plan['3_target_customers']}</p>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-map-marked-alt me-2"></i>4. Local Market Opportunity</h4>
+          <p>${plan['4_local_market_opportunity']}</p>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-boxes me-2"></i>5. Products & Services</h4>
+          <p>${plan['5_products_and_services'].replace(/\n/g, '<br>')}</p>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-hand-holding-usd me-2"></i>6. Revenue Model</h4>
+          <p>${plan['6_revenue_model'].replace(/\n/g, '<br>')}</p>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-calculator me-2"></i>7. Cost Structure</h4>
+          <p>${plan['7_cost_structure'].replace(/\n/g, '<br>')}</p>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-bullhorn me-2"></i>8. Marketing Strategy</h4>
+          <p>${plan['8_marketing_strategy'].replace(/\n/g, '<br>')}</p>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-chart-line me-2"></i>9. Financial Projections</h4>
+          <p>${plan['9_financial_projection'].replace(/\n/g, '<br>')}</p>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-shield-alt me-2"></i>10. Risks & Mitigation</h4>
+          <p>${plan['10_risks_and_mitigation'].replace(/\n/g, '<br>')}</p>
+        </div>
+
+        <div class="plan-section mb-4">
+          <h4 class="text-success border-bottom pb-1"><i class="fas fa-rocket me-2"></i>11. Growth Plan</h4>
+          <p>${plan['11_growth_plan'].replace(/\n/g, '<br>')}</p>
+        </div>
+      </div>
+    `;
+
+    previewContainer.innerHTML = html;
+    previewContainer.scrollIntoView({ behavior: 'smooth' });
+
+    // Download / Print listener
+    document.getElementById('downloadPlanPdfBtn').addEventListener('click', () => {
+      window.print();
+    });
+  }
+});

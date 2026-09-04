@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile & Settings - GramBiz AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="dashboard.html" class="sidebar-link">
+            <i class="fas fa-home"></i>
+            <span data-i18n="nav_dashboard">Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="advisor.html" class="sidebar-link">
+            <i class="fas fa-robot"></i>
+            <span data-i18n="nav_advisor">AI Advisor</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="hyperlocal.html" class="sidebar-link">
+            <i class="fas fa-map-marker-alt"></i>
+            <span data-i18n="nav_hyperlocal">Hyperlocal Insights</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="finance.html" class="sidebar-link">
+            <i class="fas fa-calculator"></i>
+            <span data-i18n="nav_finance">Financial Planner</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="expenses.html" class="sidebar-link">
+            <i class="fas fa-receipt"></i>
+            <span data-i18n="nav_expenses">Expenses</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="revenue.html" class="sidebar-link">
+            <i class="fas fa-coins"></i>
+            <span data-i18n="nav_revenue">Revenue</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="business-plan.html" class="sidebar-link">
+            <i class="fas fa-file-contract"></i>
+            <span data-i18n="nav_business_plan">Business Plan</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="funding.html" class="sidebar-link">
+            <i class="fas fa-landmark"></i>
+            <span data-i18n="nav_funding">Funding Assistant</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="profile.html" class="sidebar-link active">
+            <i class="fas fa-user-cog"></i>
+            <span data-i18n="nav_profile">Profile</span>
+          </a>
+        </li>
+        <li class="sidebar-item" style="margin-top: 1.5rem; border-top: 1px solid var(--neutral-100); padding-top: 0.5rem;">
+          <a href="#" class="sidebar-link logout-btn" style="color: var(--status-danger);">
+            <i class="fas fa-sign-out-alt"></i>
+            <span data-i18n="nav_logout">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="mobileMenuToggle" class="btn btn-secondary btn-sm" style="display: none;"><i class="fas fa-bars"></i></button>
+          <h2><i class="fas fa-user-cog text-primary me-2"></i>Profile & Notifications</h2>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en" onclick="i18n.setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="hi" onclick="i18n.setLanguage('hi')">हिन्दी</button>
+          </div>
+          <div class="user-profile-badge" onclick="window.location.href='profile.html'">
+            <div class="avatar">GB</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Container -->
+      <div class="page-container">
+
+        <div class="grid-2col">
+          
+          <!-- Column 1: Profile Update Form -->
+          <div class="card p-4">
+            <h3 style="font-size: 1.15rem; margin-bottom: 1.25rem;"><i class="fas fa-user-edit text-success me-2"></i>Entrepreneur Profile</h3>
+            
+            <form id="profileForm">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="profName" class="form-control" required>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
+                <div class="form-group">
+                  <label class="form-label">Village / Town</label>
+                  <input type="text" id="profVillage" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">District</label>
+                  <input type="text" id="profDistrict" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">State</label>
+                  <input type="text" id="profState" class="form-control">
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label class="form-label">Business Type</label>
+                  <input type="text" id="profBusinessType" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Business Status</label>
+                  <select id="profStatus" class="form-select">
+                    <option value="Operational">Operational</option>
+                    <option value="Planning">Planning</option>
+                    <option value="Expanding">Expanding</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label class="form-label">Monthly Revenue (₹)</label>
+                  <input type="number" id="profRevenue" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Monthly Expenses (₹)</label>
+                  <input type="number" id="profExpenses" class="form-control">
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label class="form-label">Current Savings (₹)</label>
+                  <input type="number" id="profSavings" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Existing Loan Amount (₹)</label>
+                  <input type="number" id="profLoan" class="form-control">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;"><i class="fas fa-save"></i> Update Profile Information</button>
+            </form>
+          </div>
+
+          <!-- Column 2: System Notifications Panel -->
+          <div class="card p-4" id="notifs">
+            <h3 style="font-size: 1.15rem; margin-bottom: 1.25rem;"><i class="fas fa-bell text-warning me-2"></i>Notifications & Alerts</h3>
+            
+            <div id="notificationsContainer" style="display: flex; flex-direction: column; gap: 0.85rem;">
+              <!-- Loaded dynamically -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="advisor.html" class="bottom-nav-item">
+        <i class="fas fa-robot"></i>
+        <span>AI Advisor</span>
+      </a>
+      <a href="hyperlocal.html" class="bottom-nav-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Insights</span>
+      </a>
+      <a href="finance.html" class="bottom-nav-item">
+        <i class="fas fa-calculator"></i>
+        <span>Finance</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item active">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Load Profile
+      const res = await GramBiz.fetch('/profile');
+      if (res.success && res.data) {
+        const u = res.data.user || {};
+        const e = res.data.entrepreneur || {};
+
+        document.getElementById('profName').value = u.full_name || '';
+        document.getElementById('profVillage').value = e.village_town || '';
+        document.getElementById('profDistrict').value = e.district || '';
+        document.getElementById('profState').value = e.state || '';
+        document.getElementById('profBusinessType').value = e.business_type || '';
+        document.getElementById('profStatus').value = e.business_status || 'Operational';
+        document.getElementById('profRevenue').value = e.monthly_revenue || 0;
+        document.getElementById('profExpenses').value = e.monthly_expenses || 0;
+        document.getElementById('profSavings').value = e.current_savings || 0;
+        document.getElementById('profLoan').value = e.existing_loan || 0;
+      }
+
+      // Submit Profile Form
+      document.getElementById('profileForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = {
+          name: document.getElementById('profName').value,
+          village_town: document.getElementById('profVillage').value,
+          district: document.getElementById('profDistrict').value,
+          state: document.getElementById('profState').value,
+          business_type: document.getElementById('profBusinessType').value,
+          business_status: document.getElementById('profStatus').value,
+          monthly_revenue: parseFloat(document.getElementById('profRevenue').value || 0),
+          monthly_expenses: parseFloat(document.getElementById('profExpenses').value || 0),
+          current_savings: parseFloat(document.getElementById('profSavings').value || 0),
+          existing_loan: parseFloat(document.getElementById('profLoan').value || 0)
+        };
+
+        const updateRes = await GramBiz.fetch('/profile', {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+
+        if (updateRes.success) {
+          GramBiz.showToast('Profile updated successfully!', 'success');
+        } else {
+          GramBiz.showToast(updateRes.message || 'Failed to update profile.', 'danger');
+        }
+      });
+
+      // Load Notifications
+      const notifRes = await GramBiz.fetch('/notifications');
+      if (notifRes.success && notifRes.data && notifRes.data.notifications) {
+        const container = document.getElementById('notificationsContainer');
+        container.innerHTML = notifRes.data.notifications.map(n => `
+          <div class="p-3 bg-gradient-soft" style="border-radius: var(--radius-md); border-left: 4px solid ${n.type === 'warning' ? '#F59E0B' : n.type === 'success' ? '#10B981' : '#3B82F6'};">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+              <strong style="font-size: 0.92rem;">${n.title}</strong>
+              <small class="text-muted">${n.created_at}</small>
+            </div>
+            <p style="margin: 0; font-size: 0.88rem; color: var(--neutral-700);">${n.message}</p>
+          </div>
+        `).join('');
+      }
+    });
+  </script>
+</body>
+</html>

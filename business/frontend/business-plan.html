@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Business Plan Generator - GramBiz AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    @media print {
+      .sidebar, .topbar, .bottom-nav, #planGeneratorForm, .no-print {
+        display: none !important;
+      }
+      .main-content {
+        margin-left: 0 !important;
+      }
+      .page-container {
+        padding: 0 !important;
+      }
+      .card {
+        box-shadow: none !important;
+        border: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="dashboard.html" class="sidebar-link">
+            <i class="fas fa-home"></i>
+            <span data-i18n="nav_dashboard">Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="advisor.html" class="sidebar-link">
+            <i class="fas fa-robot"></i>
+            <span data-i18n="nav_advisor">AI Advisor</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="hyperlocal.html" class="sidebar-link">
+            <i class="fas fa-map-marker-alt"></i>
+            <span data-i18n="nav_hyperlocal">Hyperlocal Insights</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="finance.html" class="sidebar-link">
+            <i class="fas fa-calculator"></i>
+            <span data-i18n="nav_finance">Financial Planner</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="expenses.html" class="sidebar-link">
+            <i class="fas fa-receipt"></i>
+            <span data-i18n="nav_expenses">Expenses</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="revenue.html" class="sidebar-link">
+            <i class="fas fa-coins"></i>
+            <span data-i18n="nav_revenue">Revenue</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="business-plan.html" class="sidebar-link active">
+            <i class="fas fa-file-contract"></i>
+            <span data-i18n="nav_business_plan">Business Plan</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="funding.html" class="sidebar-link">
+            <i class="fas fa-landmark"></i>
+            <span data-i18n="nav_funding">Funding Assistant</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="profile.html" class="sidebar-link">
+            <i class="fas fa-user-cog"></i>
+            <span data-i18n="nav_profile">Profile</span>
+          </a>
+        </li>
+        <li class="sidebar-item" style="margin-top: 1.5rem; border-top: 1px solid var(--neutral-100); padding-top: 0.5rem;">
+          <a href="#" class="sidebar-link logout-btn" style="color: var(--status-danger);">
+            <i class="fas fa-sign-out-alt"></i>
+            <span data-i18n="nav_logout">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="mobileMenuToggle" class="btn btn-secondary btn-sm" style="display: none;"><i class="fas fa-bars"></i></button>
+          <h2><i class="fas fa-file-contract text-primary me-2"></i>AI Business Plan Generator</h2>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en" onclick="i18n.setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="hi" onclick="i18n.setLanguage('hi')">हिन्दी</button>
+          </div>
+          <div class="user-profile-badge" onclick="window.location.href='profile.html'">
+            <div class="avatar">GB</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Container -->
+      <div class="page-container">
+
+        <!-- Input Wizard Card -->
+        <div class="card p-4 mb-4 no-print">
+          <h3 style="font-size: 1.15rem; margin-bottom: 1.25rem;"><i class="fas fa-magic text-success me-2"></i>Generate Formal 11-Section Business Plan</h3>
+          
+          <form id="planGeneratorForm">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label">Business Name *</label>
+                <input type="text" id="planBusinessName" class="form-control" placeholder="e.g. Kisan Flour & Spice Mill" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Business Category / Type *</label>
+                <select id="planBusinessType" class="form-select" required>
+                  <option value="Food Processing & Milling">Food Processing & Milling</option>
+                  <option value="Dairy & Milk Collection">Dairy & Milk Collection</option>
+                  <option value="Garment Tailoring & Boutique">Garment Tailoring & Boutique</option>
+                  <option value="Handicrafts & E-commerce">Handicrafts & E-commerce</option>
+                  <option value="Agri Services & Equipment Rental">Agri Services & Equipment Rental</option>
+                  <option value="Smart Village Kirana">Smart Village Kirana</option>
+                  <option value="Electronics & Solar Repair">Electronics & Solar Repair</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label">Location (Village / District)</label>
+                <input type="text" id="planLocation" class="form-control" placeholder="e.g. Mandya, Karnataka">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Initial Investment Setup (₹)</label>
+                <input type="number" id="planInvestment" class="form-control" value="100000">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Expected Monthly Sales (₹)</label>
+                <input type="number" id="planExpectedSales" class="form-control" value="45000">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label">Target Customers</label>
+                <input type="text" id="planTargetCustomers" class="form-control" placeholder="e.g. Local village households, sweet shops, weekly markets">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Products / Services Offered</label>
+                <input type="text" id="planProducts" class="form-control" placeholder="e.g. Fresh wheat flour, ground turmeric, chili powder">
+              </div>
+            </div>
+
+            <button type="submit" id="planGenerateBtn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 0.5rem;">
+              <i class="fas fa-cogs"></i> Generate Complete Business Plan
+            </button>
+          </form>
+        </div>
+
+        <!-- Generated Plan Container -->
+        <div id="businessPlanPreview" style="display: none;">
+          <!-- Rendered dynamically by js/finance.js -->
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="advisor.html" class="bottom-nav-item">
+        <i class="fas fa-robot"></i>
+        <span>AI Advisor</span>
+      </a>
+      <a href="hyperlocal.html" class="bottom-nav-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Insights</span>
+      </a>
+      <a href="finance.html" class="bottom-nav-item">
+        <i class="fas fa-calculator"></i>
+        <span>Finance</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/finance.js"></script>
+</body>
+</html>

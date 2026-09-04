@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyperlocal Insights - GramBiz AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="dashboard.html" class="sidebar-link">
+            <i class="fas fa-home"></i>
+            <span data-i18n="nav_dashboard">Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="advisor.html" class="sidebar-link">
+            <i class="fas fa-robot"></i>
+            <span data-i18n="nav_advisor">AI Advisor</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="hyperlocal.html" class="sidebar-link active">
+            <i class="fas fa-map-marker-alt"></i>
+            <span data-i18n="nav_hyperlocal">Hyperlocal Insights</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="finance.html" class="sidebar-link">
+            <i class="fas fa-calculator"></i>
+            <span data-i18n="nav_finance">Financial Planner</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="expenses.html" class="sidebar-link">
+            <i class="fas fa-receipt"></i>
+            <span data-i18n="nav_expenses">Expenses</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="revenue.html" class="sidebar-link">
+            <i class="fas fa-coins"></i>
+            <span data-i18n="nav_revenue">Revenue</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="business-plan.html" class="sidebar-link">
+            <i class="fas fa-file-contract"></i>
+            <span data-i18n="nav_business_plan">Business Plan</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="funding.html" class="sidebar-link">
+            <i class="fas fa-landmark"></i>
+            <span data-i18n="nav_funding">Funding Assistant</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="profile.html" class="sidebar-link">
+            <i class="fas fa-user-cog"></i>
+            <span data-i18n="nav_profile">Profile</span>
+          </a>
+        </li>
+        <li class="sidebar-item" style="margin-top: 1.5rem; border-top: 1px solid var(--neutral-100); padding-top: 0.5rem;">
+          <a href="#" class="sidebar-link logout-btn" style="color: var(--status-danger);">
+            <i class="fas fa-sign-out-alt"></i>
+            <span data-i18n="nav_logout">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="mobileMenuToggle" class="btn btn-secondary btn-sm" style="display: none;"><i class="fas fa-bars"></i></button>
+          <h2><i class="fas fa-map-marked-alt text-primary me-2"></i>Hyperlocal Business Insights</h2>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en" onclick="i18n.setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="hi" onclick="i18n.setLanguage('hi')">हिन्दी</button>
+          </div>
+          <div class="user-profile-badge" onclick="window.location.href='profile.html'">
+            <div class="avatar">GB</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Container -->
+      <div class="page-container">
+
+        <!-- Location Header Card -->
+        <div class="card bg-gradient-rural text-white mb-4" style="color: white; border-radius: var(--radius-xl);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <span class="badge" style="background: rgba(255,255,255,0.2); color: white; margin-bottom: 0.5rem;"><i class="fas fa-location-arrow"></i> Target Location</span>
+              <h2 style="color: white; font-size: 1.8rem;" id="userLocationBanner">📍 Rural District, India</h2>
+              <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-top: 0.25rem;">
+                Hyperlocal business opportunities evaluated for regional demand and labor availability.
+              </p>
+            </div>
+            <button class="btn btn-earth" id="analyzeAreaBtn" data-i18n="analyze_area"><i class="fas fa-chart-line"></i> Analyze My Area</button>
+          </div>
+        </div>
+
+        <!-- Area Report Container (Modal / Hidden section) -->
+        <div id="areaReportBox" class="card p-4 mb-4" style="display: none; border-left: 4px solid var(--primary-600);">
+          <h3 style="color: var(--primary-900); margin-bottom: 0.75rem;"><i class="fas fa-search-location text-success me-2"></i>Area Micro-Economic Report</h3>
+          <p id="areaReportContent" style="color: var(--neutral-700); font-size: 0.95rem; line-height: 1.6;"></p>
+          <small class="text-muted italic">* Demo hyperlocal market insights generated based on regional agricultural & consumer data.</small>
+        </div>
+
+        <h3 style="font-size: 1.25rem; margin-bottom: 1.25rem;">Local Business Opportunities</h3>
+
+        <!-- Opportunity Grid -->
+        <div class="grid-3col" id="opportunitiesGrid">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="advisor.html" class="bottom-nav-item">
+        <i class="fas fa-robot"></i>
+        <span>AI Advisor</span>
+      </a>
+      <a href="hyperlocal.html" class="bottom-nav-item active">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Insights</span>
+      </a>
+      <a href="finance.html" class="bottom-nav-item">
+        <i class="fas fa-calculator"></i>
+        <span>Finance</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const res = await GramBiz.fetch('/hyperlocal-insights');
+      if (res.success && res.data) {
+        const d = res.data;
+        document.getElementById('userLocationBanner').textContent = '📍 ' + d.user_location;
+
+        const grid = document.getElementById('opportunitiesGrid');
+        grid.innerHTML = d.opportunities.map(opp => `
+          <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+                <span class="badge badge-success">${opp.category}</span>
+                <span class="badge ${opp.demand === 'High' ? 'badge-warning' : 'badge-info'}"><i class="fas fa-fire me-1"></i> ${opp.demand} Demand</span>
+              </div>
+              <h4 style="font-size: 1.1rem; color: var(--neutral-900); margin-bottom: 0.5rem;">${opp.title}</h4>
+              <p style="color: var(--neutral-600); font-size: 0.88rem; margin-bottom: 1rem;">${opp.reason}</p>
+            </div>
+
+            <div style="border-top: 1px solid var(--neutral-100); padding-top: 0.85rem; font-size: 0.85rem;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+                <span class="text-muted">Est. Investment:</span>
+                <strong style="color: var(--primary-800);">${opp.investment_range}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+                <span class="text-muted">Difficulty:</span>
+                <strong>${opp.difficulty}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span class="text-muted">Target:</span>
+                <span class="text-truncate" style="max-width: 160px;" title="${opp.target_segment}">${opp.target_segment}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        // Analyze Area Button Handler
+        document.getElementById('analyzeAreaBtn').addEventListener('click', () => {
+          const reportBox = document.getElementById('areaReportBox');
+          const reportContent = document.getElementById('areaReportContent');
+          reportBox.style.display = 'block';
+          reportContent.innerHTML = `
+            <strong>Demographic Focus:</strong> ${d.area_report.demographic_profile}<br>
+            <strong>Demand Summary:</strong> ${d.area_report.market_demand_summary}<br>
+            <strong>Key Recommended Sectors:</strong> ${d.area_report.recommended_sectors.join(', ')}
+          `;
+          reportBox.scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

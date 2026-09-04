@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revenue Tracker - GramBiz AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="dashboard.html" class="sidebar-link">
+            <i class="fas fa-home"></i>
+            <span data-i18n="nav_dashboard">Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="advisor.html" class="sidebar-link">
+            <i class="fas fa-robot"></i>
+            <span data-i18n="nav_advisor">AI Advisor</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="hyperlocal.html" class="sidebar-link">
+            <i class="fas fa-map-marker-alt"></i>
+            <span data-i18n="nav_hyperlocal">Hyperlocal Insights</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="finance.html" class="sidebar-link">
+            <i class="fas fa-calculator"></i>
+            <span data-i18n="nav_finance">Financial Planner</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="expenses.html" class="sidebar-link">
+            <i class="fas fa-receipt"></i>
+            <span data-i18n="nav_expenses">Expenses</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="revenue.html" class="sidebar-link active">
+            <i class="fas fa-coins"></i>
+            <span data-i18n="nav_revenue">Revenue</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="business-plan.html" class="sidebar-link">
+            <i class="fas fa-file-contract"></i>
+            <span data-i18n="nav_business_plan">Business Plan</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="funding.html" class="sidebar-link">
+            <i class="fas fa-landmark"></i>
+            <span data-i18n="nav_funding">Funding Assistant</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="profile.html" class="sidebar-link">
+            <i class="fas fa-user-cog"></i>
+            <span data-i18n="nav_profile">Profile</span>
+          </a>
+        </li>
+        <li class="sidebar-item" style="margin-top: 1.5rem; border-top: 1px solid var(--neutral-100); padding-top: 0.5rem;">
+          <a href="#" class="sidebar-link logout-btn" style="color: var(--status-danger);">
+            <i class="fas fa-sign-out-alt"></i>
+            <span data-i18n="nav_logout">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="mobileMenuToggle" class="btn btn-secondary btn-sm" style="display: none;"><i class="fas fa-bars"></i></button>
+          <h2><i class="fas fa-coins text-success me-2"></i>Revenue Tracker</h2>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en" onclick="i18n.setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="hi" onclick="i18n.setLanguage('hi')">हिन्दी</button>
+          </div>
+          <div class="user-profile-badge" onclick="window.location.href='profile.html'">
+            <div class="avatar">GB</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Container -->
+      <div class="page-container">
+
+        <div class="grid-2col">
+          
+          <!-- Column 1: Add Revenue Entry -->
+          <div class="card p-4">
+            <h3 style="font-size: 1.15rem; margin-bottom: 1.25rem;"><i class="fas fa-plus-circle text-success me-2"></i>Record Sales Transaction</h3>
+            
+            <form id="addRevenueForm">
+              <div class="form-group">
+                <label class="form-label">Sales Date *</label>
+                <input type="date" id="revDate" class="form-control" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Product / Service Name *</label>
+                <input type="text" id="revProduct" class="form-control" placeholder="e.g. Buffalo Milk 20L or Custom Suit Stitching" required>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label class="form-label">Quantity</label>
+                  <input type="number" id="revQuantity" class="form-control" value="1" min="1">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Total Revenue Amount (₹) *</label>
+                  <input type="number" step="0.01" id="revAmount" class="form-control" placeholder="0.00" required>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-check"></i> Record Sales</button>
+            </form>
+          </div>
+
+          <!-- Column 2: KPI & Product Breakdown -->
+          <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="card p-3 bg-gradient-soft" style="border: 1px solid var(--primary-100);">
+                <small class="text-muted text-uppercase fw-bold">Total Sales Logged</small>
+                <h2 id="totalRevenueSummary" style="color: var(--primary-800); margin-top: 0.2rem;">₹0.00</h2>
+              </div>
+
+              <div class="card p-3 bg-gradient-amber" style="border: 1px solid var(--accent-earth-light);">
+                <small class="text-muted text-uppercase fw-bold">Best-Selling Product</small>
+                <h3 id="bestSellingProduct" style="color: var(--accent-earth); margin-top: 0.2rem; font-size: 1.1rem;">-</h3>
+              </div>
+            </div>
+
+            <div class="card p-4" style="flex: 1;">
+              <h4 style="font-size: 1rem; margin-bottom: 1rem;">Sales Distribution</h4>
+              <div style="position: relative; height: 200px;">
+                <canvas id="revenueDoughnutChart"></canvas>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Revenue Sales History Table -->
+        <div class="card p-4 mt-4">
+          <h3 style="font-size: 1.15rem; margin-bottom: 1.25rem;"><i class="fas fa-history text-success me-2"></i>Sales History</h3>
+          
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--neutral-200); color: var(--neutral-600);">
+                  <th style="padding: 0.85rem;">Date</th>
+                  <th style="padding: 0.85rem;">Product / Service</th>
+                  <th style="padding: 0.85rem; text-align: center;">Quantity</th>
+                  <th style="padding: 0.85rem; text-align: right;">Total Amount (₹)</th>
+                </tr>
+              </thead>
+              <tbody id="revenueTableBody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="bottom-nav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="advisor.html" class="bottom-nav-item">
+        <i class="fas fa-robot"></i>
+        <span>AI Advisor</span>
+      </a>
+      <a href="hyperlocal.html" class="bottom-nav-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Insights</span>
+      </a>
+      <a href="finance.html" class="bottom-nav-item">
+        <i class="fas fa-calculator"></i>
+        <span>Finance</span>
+      </a>
+      <a href="profile.html" class="bottom-nav-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('revDate').valueAsDate = new Date();
+
+      loadRevenue();
+
+      document.getElementById('addRevenueForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = {
+          date: document.getElementById('revDate').value,
+          product_service: document.getElementById('revProduct').value,
+          quantity: parseInt(document.getElementById('revQuantity').value),
+          amount: parseFloat(document.getElementById('revAmount').value)
+        };
+
+        const res = await GramBiz.fetch('/revenue', {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+
+        if (res.success) {
+          GramBiz.showToast('Sales logged successfully!', 'success');
+          document.getElementById('revProduct').value = '';
+          document.getElementById('revAmount').value = '';
+          loadRevenue();
+        } else {
+          GramBiz.showToast(res.message || 'Failed to log revenue.', 'danger');
+        }
+      });
+
+      async function loadRevenue() {
+        const res = await GramBiz.fetch('/revenue');
+        if (res.success && res.data) {
+          const d = res.data;
+          document.getElementById('totalRevenueSummary').textContent = GramBiz.formatINR(d.total_revenue);
+          document.getElementById('bestSellingProduct').textContent = d.best_selling_product;
+
+          const tbody = document.getElementById('revenueTableBody');
+          if (d.revenues.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" class="text-center py-3 text-muted">No sales logged yet. Record your first sale above!</td></tr>`;
+          } else {
+            tbody.innerHTML = d.revenues.map(x => `
+              <tr style="border-bottom: 1px solid var(--neutral-100);">
+                <td style="padding: 0.85rem;">${x.revenue_date}</td>
+                <td style="padding: 0.85rem; font-weight: 600; color: var(--neutral-900);">${x.product_service}</td>
+                <td style="padding: 0.85rem; text-align: center;"><span class="badge badge-info">${x.quantity}</span></td>
+                <td style="padding: 0.85rem; text-align: right; font-weight: 700; color: var(--primary-700);">${GramBiz.formatINR(x.amount)}</td>
+              </tr>
+            `).join('');
+          }
+
+          if (d.product_breakdown && Object.keys(d.product_breakdown).length > 0) {
+            const labels = Object.keys(d.product_breakdown);
+            const vals = Object.values(d.product_breakdown);
+            GramBizCharts.initDoughnutChart('revenueDoughnutChart', labels, vals);
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
